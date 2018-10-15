@@ -24,6 +24,7 @@ class TabBarViewController: UITabBarController {
 
 // MARK: custom functions
 extension TabBarViewController {
+    
     /**
      Load the movie list based on the url string
      - Parameters:
@@ -32,6 +33,7 @@ extension TabBarViewController {
     private func loadingMovie(from urlString: String) {
         // loading screen initialize
         let loadingView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
+        loadingView.backgroundColor = .white
         self.createdLoadingIndicator(in: loadingView, content: Constants.MessageStrings.loading)
         self.view.addSubview(loadingView)
         
@@ -47,6 +49,7 @@ extension TabBarViewController {
             }
         })
     }
+    
     /**
      create a loading indicator in between of the given view with a label as the given content
      - Create an Activity indicator at center and then create a label with auto layout constraint to an Activity indicator
