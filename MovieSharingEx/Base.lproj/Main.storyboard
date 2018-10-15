@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Movies-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" sceneMemberID="viewController">
@@ -19,11 +19,27 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="vjL-R5-QIc"/>
+                    <tabBarItem key="tabBarItem" title="Movies" image="movie_disable" selectedImage="movie" id="vjL-R5-QIc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="976.79999999999995" y="26.53673163418291"/>
+        </scene>
+        <!--Favorites-->
+        <scene sceneID="zU2-Jp-txw">
+            <objects>
+                <viewController id="2XA-o8-B6K" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AvL-Wm-NtW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="tS5-uF-Mf3"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Favorites" image="favorite_disable" selectedImage="favorite" id="tYM-x9-eJ8"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hrX-OL-Ixa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="977" y="800"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="VYx-hD-O8n">
@@ -36,11 +52,37 @@
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="lAg-fW-50x"/>
+                        <segue destination="2XA-o8-B6K" kind="relationship" relationship="viewControllers" id="dmY-pB-dpE"/>
+                        <segue destination="ZkM-gJ-g6G" kind="relationship" relationship="viewControllers" id="OkX-Ag-F0t"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jbx-BB-NRg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="37.600000000000001" y="26.53673163418291"/>
         </scene>
+        <!--Settings-->
+        <scene sceneID="DJ8-ef-aQg">
+            <objects>
+                <viewController id="ZkM-gJ-g6G" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nnv-N7-A8e">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="grY-CG-q2x"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" image="setting_disable" selectedImage="setting" id="2R7-MC-OGA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pn4-9r-jzI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="38" y="799"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="favorite" width="24" height="22"/>
+        <image name="favorite_disable" width="24" height="22"/>
+        <image name="movie" width="36" height="25"/>
+        <image name="movie_disable" width="36" height="25"/>
+        <image name="setting" width="26" height="26"/>
+        <image name="setting_disable" width="26" height="26"/>
+    </resources>
 </document>

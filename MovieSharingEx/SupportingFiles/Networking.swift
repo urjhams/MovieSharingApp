@@ -9,17 +9,15 @@
 import Foundation
 import Alamofire
 
-public class Helper {
-    public static func loadMovies(completion: @escaping (_ resultDict: NSDictionary?) -> ()){
-        var result: NSDictionary?
-        if let url = URL(string: Constants.YoutubeApi.baseUrl) {
-            Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
+public class Networking {
+    public static func loadMovies(fromUrl url: URL?, completion: @escaping (_ resultDict: NSDictionary?) -> ()){
+        if let availavleUrl = url {
+            Alamofire.request(availavleUrl, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
                 if let statusCode = response.response?.statusCode {
                     switch statusCode {
                     case Constants.YoutubeApi.NetworkStatusCode.ok:
                         if let json = response.value as? NSDictionary {
-                            result = json
-                            completion(result)
+                            completion(json)
                         }
                     case Constants.YoutubeApi.NetworkStatusCode.badRequest:
                         print("bad request")
