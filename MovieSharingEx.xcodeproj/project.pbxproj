@@ -119,8 +119,8 @@
 		0D0CC93521747566007FB9CD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0D0CC937217476A2007FB9CD /* MovieViewController.swift */,
 				0D0CC939217476F4007FB9CD /* TabBarViewController.swift */,
+				0D0CC937217476A2007FB9CD /* MovieViewController.swift */,
 				0D0CC943217557E8007FB9CD /* FavoriteViewController.swift */,
 			);
 			name = Controllers;
