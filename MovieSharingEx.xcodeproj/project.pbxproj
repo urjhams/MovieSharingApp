@@ -20,6 +20,10 @@
 		0D522E7721746B3800F32468 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D522E7521746B3800F32468 /* LaunchScreen.storyboard */; };
 		0D522E8221746B3800F32468 /* MovieSharingExTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D522E8121746B3800F32468 /* MovieSharingExTests.swift */; };
 		0D522E8D21746B3900F32468 /* MovieSharingExUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D522E8C21746B3900F32468 /* MovieSharingExUITests.swift */; };
+		0DA9301E2177DB9B001B1022 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA9301C2177DB9B001B1022 /* MovieTableViewCell.swift */; };
+		0DA9301F2177DB9B001B1022 /* MovieTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DA9301D2177DB9B001B1022 /* MovieTableViewCell.xib */; };
+		0DA930222177DBB3001B1022 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA930202177DBB3001B1022 /* MovieCollectionViewCell.swift */; };
+		0DA930232177DBB3001B1022 /* MovieCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DA930212177DBB3001B1022 /* MovieCollectionViewCell.xib */; };
 		0DD001FC09ACAD83ECCCF69E /* Pods_MovieSharingExTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A4EF97EAC26D1480D5367AB /* Pods_MovieSharingExTests.framework */; };
 		6D0803CA104B007C744AE72C /* Pods_MovieSharingEx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 712ABACB8FF22045A442B72F /* Pods_MovieSharingEx.framework */; };
 		7EFA4E1C0612A548D0B2EF00 /* Pods_MovieSharingExUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A17C5AB501339B4A3F4E7A6 /* Pods_MovieSharingExUITests.framework */; };
@@ -62,6 +66,10 @@
 		0D522E8821746B3900F32468 /* MovieSharingExUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieSharingExUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D522E8C21746B3900F32468 /* MovieSharingExUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSharingExUITests.swift; sourceTree = "<group>"; };
 		0D522E8E21746B3900F32468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DA9301C2177DB9B001B1022 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
+		0DA9301D2177DB9B001B1022 /* MovieTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieTableViewCell.xib; sourceTree = "<group>"; };
+		0DA930202177DBB3001B1022 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		0DA930212177DBB3001B1022 /* MovieCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieCollectionViewCell.xib; sourceTree = "<group>"; };
 		28FD501AF0A07C62318F5488 /* Pods-MovieSharingEx.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieSharingEx.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieSharingEx/Pods-MovieSharingEx.debug.xcconfig"; sourceTree = "<group>"; };
 		2A4EF97EAC26D1480D5367AB /* Pods_MovieSharingExTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieSharingExTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A12568C8CE984CC24B53C1E /* Pods-MovieSharingExUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieSharingExUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieSharingExUITests/Pods-MovieSharingExUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -112,6 +120,10 @@
 		0D0CC93421747560007FB9CD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0DA9301C2177DB9B001B1022 /* MovieTableViewCell.swift */,
+				0DA9301D2177DB9B001B1022 /* MovieTableViewCell.xib */,
+				0DA930202177DBB3001B1022 /* MovieCollectionViewCell.swift */,
+				0DA930212177DBB3001B1022 /* MovieCollectionViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -167,8 +179,8 @@
 				0D0CC93521747566007FB9CD /* Controllers */,
 				0D0CC93421747560007FB9CD /* Views */,
 				0D0CC93321747552007FB9CD /* Models */,
-				0D522E6C21746B3600F32468 /* AppDelegate.swift */,
 				0D522E7021746B3600F32468 /* Main.storyboard */,
+				0D522E6C21746B3600F32468 /* AppDelegate.swift */,
 				0D0CC93621747585007FB9CD /* SupportingFiles */,
 			);
 			path = MovieSharingEx;
@@ -328,8 +340,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DA930232177DBB3001B1022 /* MovieCollectionViewCell.xib in Resources */,
 				0D522E7721746B3800F32468 /* LaunchScreen.storyboard in Resources */,
 				0D522E7421746B3800F32468 /* Assets.xcassets in Resources */,
+				0DA9301F2177DB9B001B1022 /* MovieTableViewCell.xib in Resources */,
 				0D522E7221746B3600F32468 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -507,10 +521,12 @@
 			files = (
 				0D522E6D21746B3600F32468 /* AppDelegate.swift in Sources */,
 				0D0CC94221748899007FB9CD /* Networking.swift in Sources */,
+				0DA9301E2177DB9B001B1022 /* MovieTableViewCell.swift in Sources */,
 				0D0CC940217484FB007FB9CD /* Extensions.swift in Sources */,
 				0D0CC93E21747FF0007FB9CD /* MovieInfo.swift in Sources */,
 				0D0CC93A217476F4007FB9CD /* TabBarViewController.swift in Sources */,
 				0D0CC938217476A2007FB9CD /* MovieViewController.swift in Sources */,
+				0DA930222177DBB3001B1022 /* MovieCollectionViewCell.swift in Sources */,
 				0D0CC944217557E8007FB9CD /* FavoriteViewController.swift in Sources */,
 				0D0CC93C21747752007FB9CD /* Constants.swift in Sources */,
 			);
@@ -698,7 +714,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tdsoft.MovieSharingEx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -717,7 +733,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tdsoft.MovieSharingEx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

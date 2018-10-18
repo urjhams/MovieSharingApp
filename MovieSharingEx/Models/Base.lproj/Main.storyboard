@@ -24,28 +24,16 @@
                                     <segment title="Second"/>
                                 </segments>
                             </segmentedControl>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oDi-ES-cMR">
-                                <rect key="frame" x="0.0" y="113" width="375" height="554"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Gf6-KT-KwM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="0X3-pT-0h5"/>
-                            <constraint firstItem="oDi-ES-cMR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6bh-r5-BF3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Gf6-KT-KwM" secondAttribute="trailing" constant="16" id="9p5-mL-EsA"/>
-                            <constraint firstItem="oDi-ES-cMR" firstAttribute="top" secondItem="Gf6-KT-KwM" secondAttribute="bottom" constant="8" id="VYE-uc-UvY"/>
-                            <constraint firstItem="oDi-ES-cMR" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Wz6-rR-d66"/>
-                            <constraint firstAttribute="bottom" secondItem="oDi-ES-cMR" secondAttribute="bottom" id="cBP-cl-UDG"/>
                             <constraint firstItem="Gf6-KT-KwM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="13" id="f9I-W9-Q5A"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Movies" id="s7P-zN-rcA"/>
-                    <connections>
-                        <outlet property="presentView" destination="oDi-ES-cMR" id="ivY-zg-Ptt"/>
-                        <outlet property="segmentControl" destination="Gf6-KT-KwM" id="T7S-iE-li0"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

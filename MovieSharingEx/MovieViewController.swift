@@ -9,7 +9,10 @@
 import UIKit
 
 class MovieViewController: UIViewController {
-
+    
+    @IBOutlet weak var segmentControl: UISegmentedControl!
+    @IBOutlet weak var presentView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

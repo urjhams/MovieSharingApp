@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MovieCollectionViewCell" customModule="MovieSharingEx" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="220" height="330"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="220" height="330"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z4a-vg-WKG">
+                        <rect key="frame" x="0.0" y="0.0" width="220" height="296"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TM1-bv-KmK">
+                        <rect key="frame" x="0.0" y="304" width="220" height="20"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="TM1-bv-KmK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="6EV-VC-u9h"/>
+                <constraint firstAttribute="trailing" secondItem="z4a-vg-WKG" secondAttribute="trailing" id="CLO-bk-EeJ"/>
+                <constraint firstItem="z4a-vg-WKG" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="FnA-ed-IOm"/>
+                <constraint firstItem="z4a-vg-WKG" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="K8W-Sp-4Xe"/>
+                <constraint firstAttribute="bottom" secondItem="TM1-bv-KmK" secondAttribute="bottom" constant="6" id="P7q-S3-BV6"/>
+                <constraint firstItem="TM1-bv-KmK" firstAttribute="top" secondItem="z4a-vg-WKG" secondAttribute="bottom" constant="8" id="YT4-7c-QSm"/>
+                <constraint firstAttribute="trailing" secondItem="TM1-bv-KmK" secondAttribute="trailing" id="hbv-by-PUD"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="175" height="330"/>
+            <connections>
+                <outlet property="movieNameLabel" destination="TM1-bv-KmK" id="JKs-u9-MtM"/>
+                <outlet property="thumbailImageView" destination="z4a-vg-WKG" id="l7w-bJ-ir6"/>
+            </connections>
+            <point key="canvasLocation" x="84.799999999999997" y="36.945812807881772"/>
+        </collectionViewCell>
+    </objects>
+</document>
