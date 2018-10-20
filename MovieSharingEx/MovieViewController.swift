@@ -87,14 +87,12 @@ extension MovieViewController {
     public func changeToContent(of movie: MovieInfo, withThumbnail thumbnail: UIImage?) {
         let storyBoard = UIStoryboard(name: "Main", bundle: .main)
         if let destination = storyBoard.instantiateViewController(withIdentifier: "MovieDetailVC") as? MovieDetailViewController {
-            if var stack = self.navigationController?.viewControllers {
-                stack.append(destination)
-            }
             destination.movie = movie
             destination.thumbnail = thumbnail
             self.navigationController?.pushViewController(destination, animated: true)
         }
     }
+    
     
 }
 

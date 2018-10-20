@@ -16,12 +16,8 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var naviItem: UINavigationItem!
     
-    var liked = false {
-        didSet {
-            setUpNavigationBar()
-        }
-    }
     var movie: MovieInfo?
     var thumbnail: UIImage?
     
@@ -31,6 +27,10 @@ class MovieDetailViewController: UIViewController {
         super.viewDidLoad()
         updateInfomation(of: movie)
         updateImage(from: thumbnail)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setUpNavigationBar()
         setUpFrames()
     }
@@ -42,7 +42,6 @@ extension MovieDetailViewController {
         titleLabel.text = movie?.title ?? ""
         infoLabel.text = "3,292 People watching \nAction, Adventure, Fantasy"
         descriptionLabel.text = movie?.description ?? ""
-        liked = isLiked()
     }
     
     private func updateImage(from img: UIImage?) {
@@ -53,9 +52,9 @@ extension MovieDetailViewController {
     }
     
     private func setUpNavigationBar() {
-        self.navigationController?.navigationBar.topItem?.title = movie?.title
-        let likeImage = liked ? #imageLiteral(resourceName: "favorite") : #imageLiteral(resourceName: "favorite_disable")
-        likeBarButton = Constants.addButton(withImage: likeImage, toNavi: self.navigationController, target: self, withAction: #selector(clickLike(_:)))
+        self.naviItem.title = movie?.title
+        let likeImage =  #imageLiteral(resourceName: "favorite_disable")
+        self.naviItem.rightBarButtonItem = UIBarButtonItem(image: likeImage, style: .plain, target: self, action: #selector(clickLike(_:)))
     }
     
     private func setUpFrames() {
@@ -64,51 +63,18 @@ extension MovieDetailViewController {
         infoLabel.setLineSpacing(lineSpacing: 8.0)
     }
     
-    private func isLiked() -> Bool {
-        if let favorites = Constants.Storage.favoriteIdList as? Data {
-            let decoder = JSONDecoder()
-            if let decoded = try? decoder.decode(Array.self, from: favorites) as [MovieInfo] {
-                for movie in decoded {
-                    if movie.id == self.movie!.id {
-                        return true
-                    }
-                }
-            }
-        }
-        return false
-    }
-    
 }
 
 extension MovieDetailViewController {
     
     @objc private func clickLike(_ sender: UIBarButtonItem) {
-        if liked {
-            guard let objects = Constants.Storage.favoriteIdList as? Data else {
-                print("no favorite object saved(nil) but still liked already?")
-                return
-            }
-            let decoder = JSONDecoder()
-            if var decoded = try? decoder.decode(Array.self, from: objects) as [MovieInfo] {
-                for index in 0...decoded.count-1 {
-                    if decoded[index].id == self.movie!.id {
-                        decoded.remove(at: index)
-                        encodeData(decoded, andSaveToStorageWithKey: Constants.Storage.idKey)
-                    }
-                }
-            } else {
-                return
-            }
+        if let objects = Constants.Storage.favoriteIdList as? Data {
+            checkAndSaveArrayData(objects, andSaveToStorageWithKey: Constants.Storage.idKey)
         } else {
-            if let objects = Constants.Storage.favoriteIdList as? Data {
-                checkAndSaveArrayData(objects, andSaveToStorageWithKey: Constants.Storage.idKey)
-            } else {
-                let objects = [self.movie!]
-                encodeData(objects, andSaveToStorageWithKey: Constants.Storage.idKey)
-            }
+            let objects = [self.movie!]
+            encodeData(objects, andSaveToStorageWithKey: Constants.Storage.idKey)
         }
-        
-        liked = !liked
+        Constants.showMessage("Save item successful", withTitle: "Saved", inside: self)
     }
     
     private func getFavoriteList() -> Data? {
@@ -118,13 +84,15 @@ extension MovieDetailViewController {
     private func checkAndSaveArrayData(_ data: Data, andSaveToStorageWithKey key: String) {
         let decoder = JSONDecoder()
         if var decoded = try? decoder.decode(Array.self, from: data) as [MovieInfo] {
+            var existed = false
             for movie in decoded {
-                if movie.id == self.movie!.id {
-                    return
-                } else {
-                    decoded.append(self.movie!)
-                    encodeData(decoded, andSaveToStorageWithKey: key)
+                if movie.id == self.movie?.id {
+                    existed = true
                 }
+            }
+            if !existed {
+                decoded.append(self.movie!)
+                encodeData(decoded, andSaveToStorageWithKey: key)
             }
         }
     }

@@ -48,12 +48,6 @@ struct Constants {
         static let movieFavoriteTableCell = "movieFavoriteTableCell"
     }
     
-    static func addButton(withImage img: UIImage?, toNavi navi: UINavigationController?,target: Any?, withAction action: Selector?) -> UIBarButtonItem? {
-        let top = navi?.navigationBar.topItem
-        top?.rightBarButtonItem = UIBarButtonItem(image: img, style: .plain, target: target, action: action)
-        return top?.rightBarButtonItem
-    }
-    
     static func setShadowBorderedImage(fromImgView imgView: UIImageView, withContainer container: UIView) {
         
         container.layer.shadowColor = UIColor.darkGray.withAlphaComponent(0.8).cgColor
@@ -77,6 +71,12 @@ struct Constants {
             destination.thumbnail = thumbnail
             navi?.pushViewController(destination, animated: true)
         }
+    }
+    
+    public static func showMessage(_ content: String, withTitle title: String, inside vc: UIViewController) {
+        let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        vc.present(alert, animated: true, completion: nil)
     }
 }
 

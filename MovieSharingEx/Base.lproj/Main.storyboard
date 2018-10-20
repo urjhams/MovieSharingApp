@@ -46,6 +46,7 @@
                     <connections>
                         <outlet property="movieContainerView" destination="oDi-ES-cMR" id="2sA-0q-19e"/>
                         <outlet property="segmentControl" destination="Gf6-KT-KwM" id="T7S-iE-li0"/>
+                        <segue destination="5BF-j6-T48" kind="show" identifier="showDetail" id="rZ2-f9-HnI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -61,7 +62,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mso-RU-Rxd">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WqC-gz-H4C">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
@@ -87,7 +88,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4lB-2r-0iR">
-                                        <rect key="frame" x="178" y="205.33333333333334" width="217" height="28"/>
+                                        <rect key="frame" x="178" y="205.33333333333331" width="217" height="28"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -135,18 +136,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WxI-Wz-HTr"/>
                     </view>
+                    <navigationItem key="navigationItem" id="oBQ-69-APN"/>
                     <connections>
                         <outlet property="containerView" destination="WQg-Kj-yKG" id="dxd-CI-cXI"/>
                         <outlet property="coverImageView" destination="WqC-gz-H4C" id="beo-M7-Ku4"/>
                         <outlet property="descriptionLabel" destination="pLZ-h9-2dv" id="8iS-7A-v5t"/>
                         <outlet property="infoLabel" destination="J4C-aD-O6M" id="cJb-wB-3xx"/>
+                        <outlet property="naviItem" destination="oBQ-69-APN" id="VCB-ur-V6F"/>
                         <outlet property="thumbnailView" destination="Jt0-iY-JOJ" id="9K4-FY-GMd"/>
                         <outlet property="titleLabel" destination="4lB-2r-0iR" id="JgE-n0-wlR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="77d-4T-3IU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3044" y="-680.5097451274363"/>
+            <point key="canvasLocation" x="3028.985507246377" y="-680.35714285714278"/>
         </scene>
         <!--Favorites-->
         <scene sceneID="zU2-Jp-txw">
@@ -173,6 +176,7 @@
                     <navigationItem key="navigationItem" title="Favorites" id="ZBl-AW-ZIK"/>
                     <connections>
                         <outlet property="moviesTableView" destination="Mi0-pf-XPu" id="AHu-CT-ZrH"/>
+                        <segue destination="5BF-j6-T48" kind="show" identifier="showDetailFavorite" id="fyj-f5-QCk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hrX-OL-Ixa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -350,4 +354,7 @@
         <image name="setting" width="26" height="26"/>
         <image name="setting_disable" width="26" height="26"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="rZ2-f9-HnI"/>
+    </inferredMetricsTieBreakers>
 </document>
