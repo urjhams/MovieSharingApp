@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MovieInfo {
+struct MovieInfo: Codable {
     public let id: String
     public let title: String
     public let imageUrl: String
@@ -16,10 +16,10 @@ struct MovieInfo {
     
     init?(withData data: NSDictionary) {
         guard
-            let id = data.string(forKeyPath: ""),
-            let title = data.string(forKeyPath: ""),
-            let imageUrl = data.string(forKeyPath: ""),
-            let description = data.string(forKeyPath: "")
+            let id = data.nsDictionary(forKeyPath: "contentDetails")?.nsDictionary(forKeyPath: "upload")?.string(forKeyPath: "videoId"),
+            let title = data.nsDictionary(forKeyPath: "snippet")?.string(forKeyPath: "title"),
+            let description = data.nsDictionary(forKeyPath: "snippet")?.string(forKeyPath: "description"),
+            let imageUrl = data.nsDictionary(forKeyPath: "snippet")?.nsDictionary(forKeyPath: "thumbnails")?.nsDictionary(forKeyPath: "standard")?.string(forKeyPath: "url")
             else {
                 return nil
         }
@@ -29,3 +29,24 @@ struct MovieInfo {
         self.description = description
     }
 }
+/*
+ json structures:
+ data = items: [
+    {
+     snippet: {
+         title: String
+         description: String
+         thumbnails: {
+            medium: {
+                url: String
+            }
+         }
+        }
+     contentDetails: {
+         upload: {
+            videoId: String
+            }
+        }
+    }
+ ]
+ */

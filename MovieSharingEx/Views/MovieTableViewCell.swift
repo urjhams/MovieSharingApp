@@ -10,13 +10,28 @@ import UIKit
 
 class MovieTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var thumbailImageView: UIImageView!
+    @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var movieNameLabel: UILabel!
+    @IBOutlet weak var containerView: UIView!
+    
+    var movie: MovieInfo? {
+        didSet {
+            movieNameLabel.text = movie?.title ?? ""
+        }
+    }
+    
+    var thumbnail: UIImage? {
+        didSet {
+            if let img = thumbnail {
+                thumbnailImageView.image = img
+            }
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.thumbailImageView.layer.cornerRadius = 6
-        self.thumbailImageView.layer.masksToBounds = true
+        
+        Constants.setShadowBorderedImage(fromImgView: thumbnailImageView, withContainer: containerView)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

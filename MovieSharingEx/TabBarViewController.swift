@@ -14,6 +14,7 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadingMovie(from: Constants.YoutubeApi.baseUrl)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,9 +44,8 @@ extension TabBarViewController {
             UIView.animate(withDuration: 1, animations: {
                 loadingView.removeFromSuperview()
             })
-            // TODO: handle the response result from API
             if let items = dictionary?.value(forKey: "items") as? [NSDictionary] {
-                print(items.first ?? "nothin")
+                self.sendDataToMovieTab(data: items)
             }
         })
     }
@@ -88,6 +88,31 @@ extension TabBarViewController {
                                relatedBy: .equal, toItem: spiner,
                                attribute: .bottom, multiplier: 1.0, constant: 8.0)
             ])
+    }
+    
+    private func sendDataToMovieTab(data: [NSDictionary]) {
+        var movieArray = [MovieInfo]()
+        var imageArray = [UIImage]()
+        for dataUnit in data {
+            if let movieInfo = MovieInfo(withData: dataUnit) {
+                movieArray.append(movieInfo)
+                do {
+                    let imageData = try Data(contentsOf: URL(string: movieInfo.imageUrl)!)
+                    if let image = UIImage(data: imageData) {
+                        imageArray.append(image)
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        
+        if let navigationController = self.viewControllers?[0] as? UINavigationController {
+            if let movieViewController = navigationController.children.first as? MovieViewController {
+                movieViewController.moviesList = movieArray
+                movieViewController.thumbnailList = imageArray
+            }
+        }
     }
 
 }
