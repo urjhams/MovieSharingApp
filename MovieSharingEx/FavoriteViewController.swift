@@ -11,6 +11,8 @@ import UIKit
 class FavoriteViewController: UIViewController {
     
     @IBOutlet weak var moviesTableView: UITableView!
+    @IBOutlet weak var naviItem: UINavigationItem!
+    
     let searchController = UISearchController(searchResultsController: nil)
     
     var movieArray = [MovieInfo]() {
@@ -43,7 +45,12 @@ extension FavoriteViewController: UISearchResultsUpdating {
         bar.searchResultsUpdater = self
         bar.obscuresBackgroundDuringPresentation = false
         bar.searchBar.placeholder = "Search"
-        navigationItem.searchController = bar
+        self.naviItem.searchController = bar
+        
+        // By default the navigation bar hides when presenting the
+        // search interface.  Obviously we don't want this to happen if
+        // our search bar is inside the navigation bar.
+        searchController.hidesNavigationBarDuringPresentation = false
     }
 }
 
@@ -131,7 +138,7 @@ extension FavoriteViewController {
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    private func filterContent(for text: String, scope: String = "All") {
+    private func filterContent(for text: String) {
         filteredMovies = movieArray.filter({ (movie) -> Bool in
             return movie.title.lowercased().contains(text.lowercased())
         })

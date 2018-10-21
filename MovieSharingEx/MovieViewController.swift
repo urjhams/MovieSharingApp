@@ -44,7 +44,7 @@ class MovieViewController: UIViewController, UINavigationControllerDelegate {
     }
 
 }
-//
+
 extension MovieViewController {
     @objc private func onSegmentIndexChange(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
