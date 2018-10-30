@@ -9,7 +9,15 @@
 import Foundation
 import Alamofire
 
+/// The functions relate to networking
 public class Networking {
+    /**
+     get the movies list from API
+     - Parameters:
+        - url: the url of API
+        - completion: when successful get the json from API as NSDictionary, handling that dictionary
+     - Warning: should update the UI in the completion closure
+     */
     public static func loadMovies(fromUrl url: URL?, completion: @escaping (_ resultDict: NSDictionary?) -> ()){
         if let availavleUrl = url {
             Alamofire.request(availavleUrl, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in

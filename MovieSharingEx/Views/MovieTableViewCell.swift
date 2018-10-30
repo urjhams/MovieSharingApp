@@ -30,8 +30,8 @@ class MovieTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        Constants.setShadowBorderedImage(fromImgView: thumbnailImageView, withContainer: containerView)
+        Global.setShadowBorderedImage(fromImgView: thumbnailImageView,
+                                      withContainer: containerView)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

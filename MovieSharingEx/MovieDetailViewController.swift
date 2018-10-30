@@ -37,13 +37,23 @@ class MovieDetailViewController: UIViewController {
     
 }
 
+// MARK: Data & UI handling
 extension MovieDetailViewController {
+    /**
+     Set information from the sent movie object
+     - Parameters:
+        - movie: The MovieInfo object which sent by previous view controller
+     */
     private func updateInfomation(of movie: MovieInfo?) {
         titleLabel.text = movie?.title ?? ""
         infoLabel.text = "3,292 People watching \nAction, Adventure, Fantasy"
         descriptionLabel.text = movie?.description ?? ""
     }
-    
+    /**
+     Set cover image from the sent image
+     - Parameters:
+        - img: The image which sent by previous view controller
+     */
     private func updateImage(from img: UIImage?) {
         if let img = img {
             coverImageView.image = img
@@ -51,37 +61,44 @@ extension MovieDetailViewController {
         }
     }
     
+    /// Perpare the navigation bar with the title of the movie & add a favorite button on the right
     private func setUpNavigationBar() {
         self.naviItem.title = movie?.title
         let likeImage =  #imageLiteral(resourceName: "favorite_disable")
         self.naviItem.rightBarButtonItem = UIBarButtonItem(image: likeImage, style: .plain, target: self, action: #selector(clickLike(_:)))
     }
     
+    /// Set up the neccessary UI & framing content
     private func setUpFrames() {
-        Constants.setShadowBorderedImage(fromImgView: thumbnailView, withContainer: containerView)
+        Global.setShadowBorderedImage(fromImgView: thumbnailView, withContainer: containerView)
         coverImageView.contentMode = .scaleAspectFill
         infoLabel.setLineSpacing(lineSpacing: 8.0)
     }
     
 }
 
+// MARK: actions
 extension MovieDetailViewController {
-    
     @objc private func clickLike(_ sender: UIBarButtonItem) {
         if let objects = Constants.Storage.favoriteIdList as? Data {
-            checkAndSaveArrayData(objects, andSaveToStorageWithKey: Constants.Storage.idKey)
+            checkArrayData(objects, andSaveToStorageWithKey: Constants.Storage.idKey)
         } else {
             let objects = [self.movie!]
             encodeData(objects, andSaveToStorageWithKey: Constants.Storage.idKey)
         }
-        Constants.showMessage("Save item successful", withTitle: "Saved", inside: self)
+        Global.showMessage("Save item successful", withTitle: "Saved", inside: self)
     }
-    
-    private func getFavoriteList() -> Data? {
-        return Data()
-    }
-    
-    private func checkAndSaveArrayData(_ data: Data, andSaveToStorageWithKey key: String) {
+}
+
+// MARK: Saving process - UserDefault
+extension MovieDetailViewController {
+    /**
+     Check if data exist and save using User default
+     - Parameters:
+        - data: the data need to save
+        - key: the key value for indicate with User default
+     */
+    private func checkArrayData(_ data: Data, andSaveToStorageWithKey key: String) {
         let decoder = JSONDecoder()
         if var decoded = try? decoder.decode(Array.self, from: data) as [MovieInfo] {
             var existed = false
@@ -97,6 +114,12 @@ extension MovieDetailViewController {
         }
     }
     
+    /**
+     Encoding object to data and save using User default
+     - Parameters:
+        - movies: Array of MovieInfo object
+        - key: the key value for indicate with User default
+     */
     private func encodeData(_ movies: [MovieInfo], andSaveToStorageWithKey key: String) {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(movies) {
@@ -104,6 +127,5 @@ extension MovieDetailViewController {
             Constants.Storage.favoriteIdList = encoded
         }
     }
-    
 }
 

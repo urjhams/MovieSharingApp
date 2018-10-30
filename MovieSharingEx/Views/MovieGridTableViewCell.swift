@@ -27,6 +27,7 @@ class MovieGridTableViewCell: UITableViewCell {
         horizontalListCollectionView.delegate = self
         horizontalListCollectionView.dataSource = self
         
+        // set the layout of the collection view inside the cell
         if let layout = horizontalListCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
             layout.minimumLineSpacing = 0
@@ -35,17 +36,17 @@ class MovieGridTableViewCell: UITableViewCell {
         }
         horizontalListCollectionView.backgroundColor = .white
         horizontalListCollectionView.showsHorizontalScrollIndicator = false
-        horizontalListCollectionView.register(UINib(nibName: Constants.nibName.movieCollectionCell,
-                                                    bundle: nil),
+        horizontalListCollectionView.register(UINib(nibName: Constants.nibName.movieCollectionCell, bundle: nil),
                                               forCellWithReuseIdentifier: Constants.cellIdentifier.movieCollectionCell)
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
 }
 
+// MARK: UITCollectionView datasource & delegate
 extension MovieGridTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return moviesList.count
@@ -53,8 +54,8 @@ extension MovieGridTableViewCell: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let movie = moviesList[indexPath.row]
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifier.movieCollectionCell, for: indexPath) as! MovieCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifier.movieCollectionCell,
+                                                      for: indexPath) as! MovieCollectionViewCell
         
         cell.movie = movie
         cell.thumbnail = thumbnailList?[indexPath.item]
@@ -65,8 +66,9 @@ extension MovieGridTableViewCell: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let movie = moviesList[indexPath.row]
         let thumbnail = thumbnailList?[indexPath.item]
+        
         if let parrent = parrentInstance {
-            parrent.changeToContent(of: movie, withThumbnail: thumbnail)
+            Global.changeToContent(of: movie, withThumbnail: thumbnail, in: parrent.navigationController)
         }
     }
     

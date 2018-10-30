@@ -31,8 +31,8 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        Constants.setShadowBorderedImage(fromImgView: thumbnailImageView, withContainer: containerView)
+        Global.setShadowBorderedImage(fromImgView: thumbnailImageView,
+                                      withContainer: containerView)
     }
 
 }

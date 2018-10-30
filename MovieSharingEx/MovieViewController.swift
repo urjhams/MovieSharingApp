@@ -16,6 +16,8 @@ class MovieViewController: UIViewController, UINavigationControllerDelegate {
     var gridTableView: UITableView?
     var listTableView: UITableView?
     
+    /// the array that holds the MovieInfo objects
+    /// - everytime this array is set, reload the tableview data, and the collection view in grid mode
     var moviesList: [MovieInfo]? {
         didSet {
             listTableView?.reloadData()
@@ -27,6 +29,8 @@ class MovieViewController: UIViewController, UINavigationControllerDelegate {
             }
         }
     }
+    
+    /// The array that holds the dowloaded image, which is pair with the objects in movieList array
     var thumbnailList: [UIImage]? {
         didSet {
             gridTableView?.reloadData()
@@ -45,6 +49,7 @@ class MovieViewController: UIViewController, UINavigationControllerDelegate {
 
 }
 
+// MARK: actions
 extension MovieViewController {
     @objc private func onSegmentIndexChange(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
@@ -60,42 +65,29 @@ extension MovieViewController {
     }
 }
 
-extension MovieViewController {
+// MARK: Initalizing the necessary content of the view controller's view
+ extension MovieViewController {
+    // create 2 tableview for grid & list
     private func prepareView(of view: UIView) {
-        initTableView(&self.gridTableView,
+        Global.initTableView(&self.gridTableView,
                       inside: view,
                       fromCellNib: Constants.nibName.movieGridTableCell,
-                      withCellIdentifier: Constants.cellIdentifier.movieGridTableCell)
+                      withCellIdentifier: Constants.cellIdentifier.movieGridTableCell,
+                      throughDelegate: self,
+                      withDatasoruce: self)
         
-        initTableView(&self.listTableView,
+        Global.initTableView(&self.listTableView,
                       inside: view,
                       fromCellNib: Constants.nibName.movieTableCell,
-                      withCellIdentifier: Constants.cellIdentifier.movieTableCell)
+                      withCellIdentifier: Constants.cellIdentifier.movieTableCell,
+                      throughDelegate: self,
+                      withDatasoruce: self)
         
     }
-    
-    private func initTableView(_ tableView: inout UITableView?,inside view: UIView, fromCellNib nib: String, withCellIdentifier id: String) {
-        tableView = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: view.bounds.height), style: .plain)
-        tableView!.delegate = self
-        tableView!.dataSource = self
-        tableView!.backgroundColor = .white
-        tableView!.separatorStyle = .none
-        tableView!.register(UINib(nibName: nib, bundle: nil), forCellReuseIdentifier: id)
-        view.addSubview(tableView!)
-    }
-    
-    public func changeToContent(of movie: MovieInfo, withThumbnail thumbnail: UIImage?) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: .main)
-        if let destination = storyBoard.instantiateViewController(withIdentifier: "MovieDetailVC") as? MovieDetailViewController {
-            destination.movie = movie
-            destination.thumbnail = thumbnail
-            self.navigationController?.pushViewController(destination, animated: true)
-        }
-    }
-    
     
 }
 
+// MARK: tableview handling (Delegate & Datasource)
 extension MovieViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
@@ -148,7 +140,7 @@ extension MovieViewController: UITableViewDataSource, UITableViewDelegate {
         if tableView == listTableView {
             let movie = moviesList![indexPath.row]
             let thumbnail = thumbnailList?[indexPath.row]
-            changeToContent(of: movie, withThumbnail: thumbnail)
+            Global.changeToContent(of: movie, withThumbnail: thumbnail, in: self.navigationController)
         }
     }
 

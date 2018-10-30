@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+
+/// Where holds all the constants
 struct Constants {
     
     struct Storage {
@@ -48,38 +50,5 @@ struct Constants {
         static let movieFavoriteTableCell = "movieFavoriteTableCell"
     }
     
-    static func setShadowBorderedImage(fromImgView imgView: UIImageView, withContainer container: UIView) {
-        
-        container.layer.shadowColor = UIColor.darkGray.withAlphaComponent(0.8).cgColor
-        container.layer.shadowOffset = CGSize(width: 0, height: 8)
-        container.layer.shadowOpacity = 0.5
-        container.layer.shadowRadius = 6.0
-        container.backgroundColor = .clear
-        
-        imgView.contentMode = .scaleAspectFill
-        imgView.layer.cornerRadius = 6
-        imgView.layer.masksToBounds = true
-    }
     
-    public static func changeToContent(of movie: MovieInfo, withThumbnail thumbnail: UIImage?, in navi: UINavigationController?) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: .main)
-        if let destination = storyBoard.instantiateViewController(withIdentifier: "MovieDetailVC") as? MovieDetailViewController {
-            if var stack = navi?.viewControllers {
-                stack.append(destination)
-            }
-            destination.movie = movie
-            destination.thumbnail = thumbnail
-            navi?.pushViewController(destination, animated: true)
-        }
-    }
-    
-    public static func showMessage(_ content: String, withTitle title: String, inside vc: UIViewController) {
-        let alert = UIAlertController(title: title, message: content, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-        vc.present(alert, animated: true, completion: nil)
-    }
 }
-
-
-
-

@@ -21,6 +21,7 @@ class FavoriteViewController: UIViewController {
         }
     }
     
+    /// the list of movies which containt the search keyword
     var filteredMovies = [MovieInfo]()
     
     override func viewDidLoad() {
@@ -36,6 +37,7 @@ class FavoriteViewController: UIViewController {
 
 }
 
+// MARK: Search Control handling
 extension FavoriteViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         self.filterContent(for: searchController.searchBar.text!)
@@ -54,7 +56,19 @@ extension FavoriteViewController: UISearchResultsUpdating {
     }
 }
 
+// MARK: table view handling, data source & delegate
 extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    /// register the table view cell from the nib, set up the neccessary resources for the table ciew
+    private func registerTableView(_ table: UITableView) {
+        table.separatorStyle = .none
+        table.backgroundColor = .white
+        table.delegate = self
+        table.dataSource = self
+        let nibName = Constants.nibName.movieTableCell
+        table.register(UINib(nibName: nibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier.movieFavoriteTableCell)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return isFiltering() ? filteredMovies.count : movieArray.count
     }
@@ -86,20 +100,13 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
         } catch {
             print(error.localizedDescription)
         }
-        changeToContent(of: movie, withThumbnail: img)
+        Global.changeToContent(of: movie, withThumbnail: img, in: self.navigationController)
     }
     
-    private func registerTableView(_ table: UITableView) {
-        table.separatorStyle = .none
-        table.backgroundColor = .white
-        table.delegate = self
-        table.dataSource = self
-        let nibName = Constants.nibName.movieTableCell
-        table.register(UINib(nibName: nibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier.movieFavoriteTableCell)
-    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 30))
         let label = UILabel(frame: CGRect(x: 16, y: 5 , width: headerView.bounds.width - 32, height: 20))
@@ -112,8 +119,12 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: handling data of favorite table view and filter search view
 extension FavoriteViewController {
-    
+    /**
+     Get the list of favorite movies from User default
+     - Returns: the list of movie objects
+     */
     private func favoriteList() -> [MovieInfo] {
         guard let objects = Constants.Storage.favoriteIdList as? Data else {
             return [MovieInfo]()
@@ -125,27 +136,24 @@ extension FavoriteViewController {
         return [MovieInfo]()
     }
     
-    private func changeToContent(of movie: MovieInfo, withThumbnail thumbnail: UIImage?) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: .main)
-        if let destination = storyBoard.instantiateViewController(withIdentifier: "MovieDetailVC") as? MovieDetailViewController {
-            destination.movie = movie
-            destination.thumbnail = thumbnail
-            self.navigationController?.pushViewController(destination, animated: true)
-        }
-    }
-    
+    /// Get the current state of the search bar is empty or not
     private func SearchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
+    
+    /// Get the content of searching keyword through the filter function and set to filteredMovies variable
     private func filterContent(for text: String) {
         filteredMovies = movieArray.filter({ (movie) -> Bool in
             return movie.title.lowercased().contains(text.lowercased())
         })
-        
         self.moviesTableView.reloadData()
     }
-
+    
+    /**
+     Check if searching or not
+     - Returns: the state of searching/ filtering
+     */
     private func isFiltering() -> Bool {
         return searchController.isActive && !SearchBarIsEmpty()
     }

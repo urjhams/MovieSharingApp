@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The object that holds neccessary information about the movie
 struct MovieInfo: Codable {
     public let id: String
     public let title: String
@@ -20,17 +21,19 @@ struct MovieInfo: Codable {
             let title = data.nsDictionary(forKeyPath: "snippet")?.string(forKeyPath: "title"),
             let description = data.nsDictionary(forKeyPath: "snippet")?.string(forKeyPath: "description"),
             let imageUrl = data.nsDictionary(forKeyPath: "snippet")?.nsDictionary(forKeyPath: "thumbnails")?.nsDictionary(forKeyPath: "standard")?.string(forKeyPath: "url")
-            else {
-                return nil
+        else {
+            return nil
         }
+        
         self.id = id
         self.title = title
         self.imageUrl = imageUrl
         self.description = description
     }
 }
-/*
- json structures:
+
+/*  json structures:
+ 
  data = items: [
     {
      snippet: {
@@ -49,4 +52,5 @@ struct MovieInfo: Codable {
         }
     }
  ]
+ 
  */

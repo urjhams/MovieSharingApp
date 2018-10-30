@@ -25,7 +25,6 @@ class TabBarViewController: UITabBarController {
 
 // MARK: custom functions
 extension TabBarViewController {
-    
     /**
      Load the movie list based on the url string
      - Parameters:
@@ -90,6 +89,12 @@ extension TabBarViewController {
             ])
     }
     
+    /**
+     After getting the list of movie informations as Dictionary, apply them to 2 seperate arrays
+     - For load the pictures one time, get all the pictures & save into an image Array from the tab bar
+     - Parameters:
+        - data: the Dictionary (which in JSON natively) got from the respone of API request
+     */
     private func sendDataToMovieTab(data: [NSDictionary]) {
         var movieArray = [MovieInfo]()
         var imageArray = [UIImage]()
@@ -106,7 +111,7 @@ extension TabBarViewController {
                 }
             }
         }
-        
+        // set data for child view controller at index 0 - MovieViewController
         if let navigationController = self.viewControllers?[0] as? UINavigationController {
             if let movieViewController = navigationController.children.first as? MovieViewController {
                 movieViewController.moviesList = movieArray
