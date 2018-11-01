@@ -28,11 +28,11 @@ class FavoriteViewController: UIViewController {
         super.viewDidLoad()
         setUpNavigator(with: searchController)
         registerTableView(moviesTableView)
-        movieArray = favoriteList()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        movieArray = Constants.Storage.favoriteMoviesList!
     }
 
 }
@@ -66,7 +66,8 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
         table.delegate = self
         table.dataSource = self
         let nibName = Constants.nibName.movieTableCell
-        table.register(UINib(nibName: nibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier.movieFavoriteTableCell)
+        let cellId = Constants.cellIdentifier.movieFavoriteTableCell
+        table.register(UINib(nibName: nibName, bundle: nil), forCellReuseIdentifier: cellId)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -75,7 +76,8 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let movie = isFiltering() ? filteredMovies[indexPath.row] : movieArray[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier.movieFavoriteTableCell) as! MovieTableViewCell
+        let cellId = Constants.cellIdentifier.movieFavoriteTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! MovieTableViewCell
         cell.movie = movie
         do {
             let imageData = try Data(contentsOf: URL(string: movie.imageUrl)!)
@@ -121,20 +123,6 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: handling data of favorite table view and filter search view
 extension FavoriteViewController {
-    /**
-     Get the list of favorite movies from User default
-     - Returns: the list of movie objects
-     */
-    private func favoriteList() -> [MovieInfo] {
-        guard let objects = Constants.Storage.favoriteIdList as? Data else {
-            return [MovieInfo]()
-        }
-        let decoder = JSONDecoder()
-        if let decoded = try? decoder.decode(Array.self, from: objects) as [MovieInfo] {
-            return decoded
-        }
-        return [MovieInfo]()
-    }
     
     /// Get the current state of the search bar is empty or not
     private func SearchBarIsEmpty() -> Bool {

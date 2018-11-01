@@ -79,4 +79,19 @@ struct Global {
         tableView!.register(UINib(nibName: nib, bundle: nil), forCellReuseIdentifier: id)
         view.addSubview(tableView!)
     }
+    
+    /**
+     Get the list of favorite movies from User default
+     - Returns: the list of movie objects
+     */
+    public static func favoriteList() -> [MovieInfo] {
+        guard let objects = Constants.Storage.favoriteDataList as? Data else {
+            return [MovieInfo]()
+        }
+        let decoder = JSONDecoder()
+        if let decoded = try? decoder.decode(Array.self, from: objects) as [MovieInfo] {
+            return decoded
+        }
+        return [MovieInfo]()
+    }
 }

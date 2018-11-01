@@ -14,8 +14,13 @@ import UIKit
 struct Constants {
     
     struct Storage {
-        static let idKey = "favorite video id"
-        static var favoriteIdList = UserDefaults.standard.value(forKey: idKey)
+        static let idKey = "favorite v/ideo id"
+        
+        /// the raw json data of favorite Movies
+        static var favoriteDataList = UserDefaults.standard.value(forKey: idKey)
+        
+        /// the decoded data of favorite Movies (for better peformance)
+        static var favoriteMoviesList: [MovieInfo]?
     }
     
     

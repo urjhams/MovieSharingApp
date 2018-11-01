@@ -80,13 +80,12 @@ extension MovieDetailViewController {
 // MARK: actions
 extension MovieDetailViewController {
     @objc private func clickLike(_ sender: UIBarButtonItem) {
-        if let objects = Constants.Storage.favoriteIdList as? Data {
+        if let objects = Constants.Storage.favoriteDataList as? Data {
             checkArrayData(objects, andSaveToStorageWithKey: Constants.Storage.idKey)
         } else {
             let objects = [self.movie!]
             encodeData(objects, andSaveToStorageWithKey: Constants.Storage.idKey)
         }
-        Global.showMessage("Save item successful", withTitle: "Saved", inside: self)
     }
 }
 
@@ -124,7 +123,16 @@ extension MovieDetailViewController {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(movies) {
             UserDefaults.standard.set(encoded, forKey: key)
-            Constants.Storage.favoriteIdList = encoded
+            Constants.Storage.favoriteDataList = encoded
+            
+            // Save to the seperate array of the object can increase peformance in favorite list
+            // since don't have to decode everytime the screen appearing
+            if var _ = Constants.Storage.favoriteMoviesList {
+                Constants.Storage.favoriteMoviesList!.append(self.movie!)
+            } else {
+                Constants.Storage.favoriteMoviesList = [self.movie!]
+            }
+            Global.showMessage("Save item successful", withTitle: "Saved", inside: self)
         }
     }
 }
