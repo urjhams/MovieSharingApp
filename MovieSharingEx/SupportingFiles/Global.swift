@@ -63,12 +63,12 @@ struct Global {
     /**
      Create a n UITableView from a xib file inside another container UIView with the frame & size clipped in the same size as the container.
      - Parameters:
-     - tableView: The table view instance, could be optional because it will be initalized by the information about the container's size
-     - view: The container UIView which the tableView is put inside
-     - nib: The nib name string (from the xib file)
-     - id: The reuse identifier for reuse cells inside the table view
-     - delegate: the protocol of delegate for the table view
-     - dataSource: the protocol of data source for the table view
+        - tableView: The table view instance, could be optional because it will be initalized by the information about the container's size
+        - view: The container UIView which the tableView is put inside
+        - nib: The nib name string (from the xib file)
+        - id: The reuse identifier for reuse cells inside the table view
+        - delegate: the protocol of delegate for the table view
+        - dataSource: the protocol of data source for the table view
      */
     public static func initTableView(_ tableView: inout UITableView?,inside view: UIView, fromCellNib nib: String, withCellIdentifier id: String, throughDelegate delegate: UITableViewDelegate, withDatasoruce dataSource: UITableViewDataSource) {
         tableView = UITableView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.bounds.height), style: .plain)
@@ -93,5 +93,21 @@ struct Global {
             return decoded
         }
         return [MovieInfo]()
+    }
+    
+    /**
+     Encoding object to data and save using User default
+     - Parameters:
+        - movies: Array of MovieInfo object
+        - key: the key value for indicate with User default
+        - completion: handling the event after successful
+     */
+    public static func encodeMoviesData(_ movies: [MovieInfo], andSaveToStorageWithKey key: String, completion: @escaping () -> ()) {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(movies) {
+            UserDefaults.standard.set(encoded, forKey: key)
+            Constants.Storage.favoriteDataList = encoded
+            completion()
+        }
     }
 }

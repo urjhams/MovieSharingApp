@@ -129,7 +129,6 @@ extension FavoriteViewController {
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
-    
     /// Get the content of searching keyword through the filter function and set to filteredMovies variable
     private func filterContent(for text: String) {
         filteredMovies = movieArray.filter({ (movie) -> Bool in

@@ -81,10 +81,10 @@ extension MovieDetailViewController {
 extension MovieDetailViewController {
     @objc private func clickLike(_ sender: UIBarButtonItem) {
         if let objects = Constants.Storage.favoriteDataList as? Data {
-            checkArrayData(objects, andSaveToStorageWithKey: Constants.Storage.idKey)
+            checkMoviesArrayData(objects, andSaveToStorageWithKey: Constants.Storage.idKey)
         } else {
             let objects = [self.movie!]
-            encodeData(objects, andSaveToStorageWithKey: Constants.Storage.idKey)
+            Global.encodeMoviesData(objects, andSaveToStorageWithKey: Constants.Storage.idKey, completion: saveFavoriteListIntoLiveArray)
         }
     }
 }
@@ -97,7 +97,7 @@ extension MovieDetailViewController {
         - data: the data need to save
         - key: the key value for indicate with User default
      */
-    private func checkArrayData(_ data: Data, andSaveToStorageWithKey key: String) {
+    private func checkMoviesArrayData(_ data: Data, andSaveToStorageWithKey key: String) {
         let decoder = JSONDecoder()
         if var decoded = try? decoder.decode(Array.self, from: data) as [MovieInfo] {
             var existed = false
@@ -108,32 +108,20 @@ extension MovieDetailViewController {
             }
             if !existed {
                 decoded.append(self.movie!)
-                encodeData(decoded, andSaveToStorageWithKey: key)
+                Global.encodeMoviesData(decoded, andSaveToStorageWithKey: key, completion: saveFavoriteListIntoLiveArray)
             }
         }
     }
-    
-    /**
-     Encoding object to data and save using User default
-     - Parameters:
-        - movies: Array of MovieInfo object
-        - key: the key value for indicate with User default
-     */
-    private func encodeData(_ movies: [MovieInfo], andSaveToStorageWithKey key: String) {
-        let encoder = JSONEncoder()
-        if let encoded = try? encoder.encode(movies) {
-            UserDefaults.standard.set(encoded, forKey: key)
-            Constants.Storage.favoriteDataList = encoded
-            
-            // Save to the seperate array of the object can increase peformance in favorite list
-            // since don't have to decode everytime the screen appearing
-            if var _ = Constants.Storage.favoriteMoviesList {
-                Constants.Storage.favoriteMoviesList!.append(self.movie!)
-            } else {
-                Constants.Storage.favoriteMoviesList = [self.movie!]
-            }
-            Global.showMessage("Save item successful", withTitle: "Saved", inside: self)
+        
+    private func saveFavoriteListIntoLiveArray() {
+        // Save to the seperate array of the object can increase peformance in favorite list
+        // since don't have to decode everytime the screen appearing
+        if var _ = Constants.Storage.favoriteMoviesList {
+            Constants.Storage.favoriteMoviesList!.append(self.movie!)
+        } else {
+            Constants.Storage.favoriteMoviesList = [self.movie!]
         }
+        Global.showMessage("Save item successful", withTitle: "Saved", inside: self)
     }
 }
 
