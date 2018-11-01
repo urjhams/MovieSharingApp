@@ -28,11 +28,11 @@ class FavoriteViewController: UIViewController {
         super.viewDidLoad()
         setUpNavigator(with: searchController)
         registerTableView(moviesTableView)
+        movieArray = favoriteList()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        movieArray = favoriteList()
     }
 
 }
