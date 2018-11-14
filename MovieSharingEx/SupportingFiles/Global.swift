@@ -110,4 +110,14 @@ struct Global {
             completion()
         }
     }
+    
+    public static func didLike(movie: MovieInfo) -> Bool {
+        let likedMovies = Constants.Storage.favoriteMoviesList ?? [MovieInfo]()
+        for movieUnit in likedMovies {
+            if movie.id == movieUnit.id {
+                return true
+            }
+        }
+        return false
+    }
 }

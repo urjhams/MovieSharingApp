@@ -16,7 +16,7 @@ public class Networking {
      - Parameters:
         - url: the url of API
         - completion: when successful get the json from API as NSDictionary, handling that dictionary
-     - Warning: should update the UI in the completion closure
+     - Warning: Should update the UI in the completion closure, because the process works in a different thread
      */
     public static func loadMovies(fromUrl url: URL?, completion: @escaping (_ resultDict: NSDictionary?) -> ()){
         if let availavleUrl = url {

@@ -60,6 +60,8 @@ extension FavoriteViewController: UISearchResultsUpdating {
 extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     
     /// register the table view cell from the nib, set up the neccessary resources for the table ciew
+    /// - parameters:
+    ///     - table: the table view instance to initialize
     private func registerTableView(_ table: UITableView) {
         table.separatorStyle = .none
         table.backgroundColor = .white

@@ -52,7 +52,8 @@ extension TabBarViewController {
     
     /**
      create a loading indicator in between of the given view with a label as the given content
-     - Create an Activity indicator at center and then create a label with auto layout constraint to an Activity indicator
+     
+     Create an Activity indicator at center and then create a label with auto layout constraint to an Activity indicator
      - Parameters:
         - view: the given view
         - content: the given content to show on the label
@@ -92,7 +93,8 @@ extension TabBarViewController {
     
     /**
      After getting the list of movie informations as Dictionary, apply them to 2 seperate arrays
-     - For load the pictures one time, get all the pictures & save into an image Array from the tab bar
+     
+     For load the pictures one time, get all the pictures & save into an image Array from the tab bar
      - Parameters:
         - data: the Dictionary (which in JSON natively) got from the respone of API request
      */

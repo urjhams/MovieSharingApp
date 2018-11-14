@@ -31,9 +31,7 @@ struct MovieInfo: Codable {
         self.description = description
     }
 }
-
 /*  json structures:
- 
  data = items: [
     {
      snippet: {
@@ -52,5 +50,12 @@ struct MovieInfo: Codable {
         }
     }
  ]
- 
  */
+extension MovieInfo: Equatable {
+    static func == (lhs: MovieInfo, rhs: MovieInfo?) -> Bool {
+        return lhs.id == rhs?.id &&
+            lhs.title == rhs?.title &&
+            lhs.imageUrl == rhs?.imageUrl &&
+            lhs.description == rhs?.description
+    }
+}

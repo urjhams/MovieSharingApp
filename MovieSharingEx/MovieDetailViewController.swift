@@ -20,13 +20,20 @@ class MovieDetailViewController: UIViewController {
     
     var movie: MovieInfo?
     var thumbnail: UIImage?
+    var liked = false {
+        didSet {
+            setLike(image: liked ? #imageLiteral(resourceName: "favorite") : #imageLiteral(resourceName: "favorite_disable"))
+        }
+    }
     
     var likeBarButton: UIBarButtonItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.liked = Global.didLike(movie: movie!)
         updateInfomation(of: movie)
         updateImage(from: thumbnail)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,8 +71,11 @@ extension MovieDetailViewController {
     /// Perpare the navigation bar with the title of the movie & add a favorite button on the right
     private func setUpNavigationBar() {
         self.naviItem.title = movie?.title
-        let likeImage =  #imageLiteral(resourceName: "favorite_disable")
-        self.naviItem.rightBarButtonItem = UIBarButtonItem(image: likeImage, style: .plain, target: self, action: #selector(clickLike(_:)))
+    }
+    
+    /// Set the image of like button on the navigation bar
+    private func setLike(image: UIImage) {
+        self.naviItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(clickLike(_:)))
     }
     
     /// Set up the neccessary UI & framing content
@@ -102,7 +112,7 @@ extension MovieDetailViewController {
         if var decoded = try? decoder.decode(Array.self, from: data) as [MovieInfo] {
             var existed = false
             for movie in decoded {
-                if movie.id == self.movie?.id {
+                if movie == self.movie {
                     existed = true
                 }
             }
@@ -112,7 +122,7 @@ extension MovieDetailViewController {
             }
         }
     }
-        
+    
     private func saveFavoriteListIntoLiveArray() {
         // Save to the seperate array of the object can increase peformance in favorite list
         // since don't have to decode everytime the screen appearing

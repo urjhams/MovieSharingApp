@@ -17,7 +17,8 @@ class MovieViewController: UIViewController, UINavigationControllerDelegate {
     var listTableView: UITableView?
     
     /// the array that holds the MovieInfo objects
-    /// - everytime this array is set, reload the tableview data, and the collection view in grid mode
+    ///
+    /// Everytime this array is set, reload the tableview data, and the collection view in grid mode
     var moviesList: [MovieInfo]? {
         didSet {
             listTableView?.reloadData()
@@ -103,20 +104,20 @@ extension MovieViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch tableView {
-        case listTableView:
-            let movie = moviesList![indexPath.row]
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier.movieTableCell) as! MovieTableViewCell
-            cell.movie = movie
-            cell.thumbnail = thumbnailList?[indexPath.row]
-            return cell
-        case gridTableView:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier.movieGridTableCell) as! MovieGridTableViewCell
-            cell.moviesList = self.moviesList ?? [MovieInfo]()
-            cell.thumbnailList = self.thumbnailList
-            cell.parrentInstance = self
-            return cell
-        default:
-            return UITableViewCell()
+            case listTableView:
+                let movie = moviesList![indexPath.row]
+                let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier.movieTableCell) as! MovieTableViewCell
+                cell.movie = movie
+                cell.thumbnail = thumbnailList?[indexPath.row]
+                return cell
+            case gridTableView:
+                let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier.movieGridTableCell) as! MovieGridTableViewCell
+                cell.moviesList = self.moviesList ?? [MovieInfo]()
+                cell.thumbnailList = self.thumbnailList
+                cell.parrentInstance = self
+                return cell
+            default:
+                return UITableViewCell()
         }
     }
     
