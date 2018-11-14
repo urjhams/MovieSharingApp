@@ -70,6 +70,9 @@ extension MovieViewController {
  extension MovieViewController {
     // create 2 tableview for grid & list
     private func prepareView(of view: UIView) {
+        
+        view.frame.size.width = self.view.frame.size.width
+        
         Global.initTableView(&self.gridTableView,
                       inside: view,
                       fromCellNib: Constants.nibName.movieGridTableCell,
@@ -83,6 +86,29 @@ extension MovieViewController {
                       withCellIdentifier: Constants.cellIdentifier.movieTableCell,
                       throughDelegate: self,
                       withDatasoruce: self)
+        
+        // fix table view bottom part being overlaped by tab bar
+        func fixingTabbarBottomOverlap() {
+            if let tabbarController = self.tabBarController {
+                self.gridTableView?.contentInset.bottom = tabbarController.tabBar.frame.height + 16
+                self.listTableView?.contentInset.bottom = tabbarController.tabBar.frame.height + 16
+            }
+        }
+        
+        if UIDevice().userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+            case 1136:  // 5, 5s, 5c
+                break
+            case 1334:  // 6, 6s, 7, 8
+                fixingTabbarBottomOverlap()
+            case 2208:  // 6+, 6s+, 7+, 8+
+                break
+            case 2435:  // X
+                break
+            default:    //  XS, XSMAX, XR
+                break
+            }
+        }
         
     }
     
