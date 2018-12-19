@@ -44,9 +44,15 @@ extension TabBarViewController {
                 Constants.Storage.favoriteMoviesList = Global.favoriteList()
                 loadingView.removeFromSuperview()
             })
-            if let items = dictionary?.value(forKey: "items") as? [NSDictionary] {
-                self.sendDataToMovieTab(data: items)
+            guard let items = dictionary?.value(forKey: "items") as? [NSDictionary]  else {
+                
+                // well, for testing, it will crash here if cannot find the items constant.
+                // comment or remove the line bellow if testing successful.
+                assertionFailure("casting problem:\n\(String(describing: dictionary))")
+                
+                return
             }
+            self.sendDataToMovieTab(data: items)
         })
     }
     
