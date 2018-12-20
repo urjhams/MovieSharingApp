@@ -88,27 +88,27 @@ extension MovieViewController {
                       withDatasoruce: self)
         
         // fix table view bottom part being overlaped by tab bar
-        func fixingTabbarBottomOverlap() {
-            if let tabbarController = self.tabBarController {
-                self.gridTableView?.contentInset.bottom = tabbarController.tabBar.frame.height + 16
-                self.listTableView?.contentInset.bottom = tabbarController.tabBar.frame.height + 16
-            }
-        }
-        
-        if UIDevice().userInterfaceIdiom == .phone {
-            switch UIScreen.main.nativeBounds.height {
-            case 1136:  // 5, 5s, 5c
-                break
-            case 1334:  // 6, 6s, 7, 8
-                fixingTabbarBottomOverlap()
-            case 2208:  // 6+, 6s+, 7+, 8+
-                break
-            case 2435:  // X
-                break
-            default:    //  XS, XSMAX, XR
-                break
-            }
-        }
+//        func fixingTabbarBottomOverlap() {
+//            if let tabbarController = self.tabBarController {
+//                self.gridTableView?.contentInset.bottom = tabbarController.tabBar.frame.height + 16
+//                self.listTableView?.contentInset.bottom = tabbarController.tabBar.frame.height + 16
+//            }
+//        }
+//
+//        if UIDevice().userInterfaceIdiom == .phone {
+//            switch UIScreen.main.nativeBounds.height {
+//            case 1136:  // 5, 5s, 5c
+//                break
+//            case 1334:  // 6, 6s, 7, 8
+//                fixingTabbarBottomOverlap()
+//            case 2208:  // 6+, 6s+, 7+, 8+
+//                break
+//            case 2435:  // X
+//                break
+//            default:    //  XS, XSMAX, XR
+//                break
+//            }
+//        }
         
     }
     

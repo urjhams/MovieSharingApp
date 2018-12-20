@@ -41,7 +41,6 @@ extension TabBarViewController {
         let url = URL(string: urlString)
         Networking.loadMovies(fromUrl: url, completion: { (dictionary) in
             UIView.animate(withDuration: 1, animations: {
-                Constants.Storage.favoriteMoviesList = Global.favoriteList()
                 loadingView.removeFromSuperview()
             })
             guard let items = dictionary?.value(forKey: "items") as? [NSDictionary]  else {

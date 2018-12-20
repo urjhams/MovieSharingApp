@@ -85,8 +85,8 @@ struct Global {
      Get the list of favorite movies from User default
      - Returns: the list of movie objects
      */
-    public static func favoriteList() -> [MovieInfo] {
-        guard let objects = Constants.Storage.favoriteDataList as? Data else {
+    public static func favoriteList(from data: Any?) -> [MovieInfo] {
+        guard let objects = data as? Data else {
             return [MovieInfo]()
         }
         let decoder = JSONDecoder()
@@ -95,6 +95,7 @@ struct Global {
         }
         return [MovieInfo]()
     }
+
     
     /**
      Encoding object to data and save using User default
@@ -103,17 +104,15 @@ struct Global {
         - key: the key value for indicate with User default
         - completion: handling the event after successful
      */
-    public static func encodeMoviesData(_ movies: [MovieInfo], andSaveToStorageWithKey key: String, completion: @escaping () -> ()) {
+    public static func encodeMoviesData(_ movies: [MovieInfo], andSaveToStorageWithKey key: String) {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(movies) {
             UserDefaults.standard.set(encoded, forKey: key)
-            Constants.Storage.favoriteDataList = encoded
-            completion()
         }
     }
     
     public static func didLike(movie: MovieInfo) -> Bool {
-        let likedMovies = Constants.Storage.favoriteMoviesList ?? [MovieInfo]()
+        let likedMovies = Constants.Storage.favoriteDataList
         for movieUnit in likedMovies {
             if movie.id == movieUnit.id {
                 return true

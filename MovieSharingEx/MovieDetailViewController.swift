@@ -30,7 +30,6 @@ class MovieDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.liked = Global.didLike(movie: movie!)
         updateInfomation(of: movie)
         updateImage(from: thumbnail)
         
@@ -38,6 +37,7 @@ class MovieDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.liked = Global.didLike(movie: movie!)
         setUpNavigationBar()
         setUpFrames()
     }
@@ -90,48 +90,40 @@ extension MovieDetailViewController {
 // MARK: actions
 extension MovieDetailViewController {
     @objc private func clickLike(_ sender: UIBarButtonItem) {
-        if let objects = Constants.Storage.favoriteDataList as? Data {
-            checkMoviesArrayData(objects, andSaveToStorageWithKey: Constants.Storage.idKey)
+        // now it should had the movie object already
+        if self.liked {
+            if !removeTheMovie(self.movie!) {
+                Global.showMessage("Oops, something happen",
+                                   withTitle: "Removed", inside: self)
+            }
+            
         } else {
-            let objects = [self.movie!]
-            Global.encodeMoviesData(objects, andSaveToStorageWithKey: Constants.Storage.idKey, completion: saveFavoriteListIntoLiveArray)
+            if !saveTheMovie(self.movie!) {
+                Global.showMessage("Oops, something happen",
+                                   withTitle: "Removed", inside: self)
+            }
         }
+        self.liked = !self.liked
     }
 }
 
 // MARK: Saving process - UserDefault
 extension MovieDetailViewController {
-    /**
-     Check if data exist and save using User default
-     - Parameters:
-        - data: the data need to save
-        - key: the key value for indicate with User default
-     */
-    private func checkMoviesArrayData(_ data: Data, andSaveToStorageWithKey key: String) {
-        let decoder = JSONDecoder()
-        if var decoded = try? decoder.decode(Array.self, from: data) as [MovieInfo] {
-            var existed = false
-            for movie in decoded {
-                if movie == self.movie {
-                    existed = true
-                }
-            }
-            if !existed {
-                decoded.append(self.movie!)
-                Global.encodeMoviesData(decoded, andSaveToStorageWithKey: key, completion: saveFavoriteListIntoLiveArray)
-            }
-        }
+    private func saveTheMovie(_ movie: MovieInfo) -> Bool {
+        if Constants.Storage.favoriteDataList.contains(movie) { return false }
+        Constants.Storage.favoriteDataList.append(movie)
+        return true
     }
     
-    private func saveFavoriteListIntoLiveArray() {
-        // Save to the seperate array of the object can increase peformance in favorite list
-        // since don't have to decode everytime the screen appearing
-        if var _ = Constants.Storage.favoriteMoviesList {
-            Constants.Storage.favoriteMoviesList!.append(self.movie!)
-        } else {
-            Constants.Storage.favoriteMoviesList = [self.movie!]
+    
+    private func removeTheMovie(_ movie: MovieInfo) -> Bool {
+        for index in 0..<Constants.Storage.favoriteDataList.count {
+            if movie == Constants.Storage.favoriteDataList[index] {
+                Constants.Storage.favoriteDataList.remove(at: index)
+                return true
+            }
         }
-        Global.showMessage("Save item successful", withTitle: "Saved", inside: self)
+        return false
     }
 }
 

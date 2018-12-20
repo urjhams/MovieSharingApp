@@ -32,7 +32,7 @@ class FavoriteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        movieArray = Constants.Storage.favoriteMoviesList!
+        movieArray = Constants.Storage.favoriteDataList
     }
 
 }
@@ -108,7 +108,7 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return self.movieArray.count == 0 ? 0 : 1
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
