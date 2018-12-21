@@ -82,6 +82,9 @@ extension MovieDetailViewController {
     private func setUpFrames() {
         Global.setShadowBorderedImage(fromImgView: thumbnailView, withContainer: containerView)
         coverImageView.contentMode = .scaleAspectFill
+        coverImageView.clipsToBounds = true
+        thumbnailView.contentMode = .scaleAspectFill
+        thumbnailView.clipsToBounds = true
         infoLabel.setLineSpacing(lineSpacing: 8.0)
     }
     
