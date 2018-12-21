@@ -20,6 +20,9 @@
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Gf6-KT-KwM">
                                 <rect key="frame" x="16" y="77" width="343" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="d95-dW-ij5"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Grid"/>
                                     <segment title="List"/>
@@ -51,7 +54,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1914.375" y="-680.28169014084506"/>
+            <point key="canvasLocation" x="1912.8" y="-680.5097451274363"/>
         </scene>
         <!--Movie Detail View Controller-->
         <scene sceneID="Dez-L1-9Au">

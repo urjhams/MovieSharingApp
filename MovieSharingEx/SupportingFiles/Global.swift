@@ -71,14 +71,53 @@ struct Global {
         - dataSource: the protocol of data source for the table view
      */
     public static func initTableView(_ tableView: inout UITableView?,inside view: UIView, fromCellNib nib: String, withCellIdentifier id: String, throughDelegate delegate: UITableViewDelegate, withDatasoruce dataSource: UITableViewDataSource) {
-        tableView = UITableView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height), style: .plain)
+        tableView = UITableView(frame: CGRect.zero)
         tableView!.delegate = delegate
         tableView!.dataSource = dataSource
         tableView!.backgroundColor = .white
         tableView!.separatorStyle = .none
         tableView!.register(UINib(nibName: nib, bundle: nil), forCellReuseIdentifier: id)
         view.addSubview(tableView!)
-        //tableView!.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0).isActive = true
+        
+        // autolayout
+        var constraintList = [NSLayoutConstraint]()
+        
+        constraintList.append(NSLayoutConstraint(
+            item: tableView!,
+            attribute: .leading,
+            relatedBy: .equal,
+            toItem: view,
+            attribute: .leading,
+            multiplier: 1,
+            constant: 0))
+        constraintList.append(NSLayoutConstraint(
+            item: tableView!,
+            attribute: .trailing,
+            relatedBy: .equal,
+            toItem: view,
+            attribute: .trailing,
+            multiplier: 1,
+            constant: 0))
+        constraintList.append(NSLayoutConstraint(
+            item: tableView!,
+            attribute: .top,
+            relatedBy: .equal,
+            toItem: view,
+            attribute: .top,
+            multiplier: 1,
+            constant: 0))
+        constraintList.append(NSLayoutConstraint(
+            item: tableView!,
+            attribute: .bottom,
+            relatedBy: .equal,
+            toItem: view,
+            attribute: .bottom,
+            multiplier: 1,
+            constant: 0))
+        NSLayoutConstraint.activate(constraintList)
+        
+        view.backgroundColor = .black
+        tableView!.translatesAutoresizingMaskIntoConstraints = false
     }
     
     /**
@@ -95,7 +134,6 @@ struct Global {
         }
         return [MovieInfo]()
     }
-
     
     /**
      Encoding object to data and save using User default
