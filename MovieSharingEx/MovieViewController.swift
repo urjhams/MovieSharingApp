@@ -11,10 +11,10 @@ import UIKit
 class MovieViewController: UIViewController, UINavigationControllerDelegate {
     
     @IBOutlet weak var segmentControl: UISegmentedControl!
-    @IBOutlet weak var movieContainerView: UIView!
     
-    var gridTableView: UITableView?
-    var listTableView: UITableView?
+    @IBOutlet weak var gridTableView: UITableView!
+    @IBOutlet weak var listTableView: UITableView!
+
     
     /// the array that holds the MovieInfo objects
     ///
@@ -40,7 +40,7 @@ class MovieViewController: UIViewController, UINavigationControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareView(of: movieContainerView)
+        prepareView()
         self.segmentControl.addTarget(self,
                                       action: #selector(onSegmentIndexChange(_:)),
                                       for: .valueChanged)
@@ -69,29 +69,18 @@ extension MovieViewController {
 // MARK: Initalizing the necessary content of the view controller's view
  extension MovieViewController {
     // create 2 tableview for grid & list
-    private func prepareView(of view: UIView) {
-        Global.initTableView(&self.gridTableView,
-                      inside: view,
+    private func prepareView() {
+        Global.configTableView(&self.gridTableView,
                       fromCellNib: Constants.nibName.movieGridTableCell,
                       withCellIdentifier: Constants.cellIdentifier.movieGridTableCell,
                       throughDelegate: self,
                       withDatasoruce: self)
         
-        Global.initTableView(&self.listTableView,
-                      inside: view,
+        Global.configTableView(&self.listTableView,
                       fromCellNib: Constants.nibName.movieTableCell,
                       withCellIdentifier: Constants.cellIdentifier.movieTableCell,
                       throughDelegate: self,
                       withDatasoruce: self)
-        
-        // fix table view bottom part being overlaped by tab bar
-//        func fixingTabbarBottomOverlap() {
-//            if let tabbarController = self.tabBarController {
-//                self.gridTableView?.contentInset.bottom = tabbarController.tabBar.frame.height + 16
-//                self.listTableView?.contentInset.bottom = tabbarController.tabBar.frame.height + 16
-//            }
-//        }
-        
     }
     
 }
@@ -107,7 +96,6 @@ extension MovieViewController: UITableViewDataSource, UITableViewDelegate {
         default:
             return 0
         }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -146,11 +134,10 @@ extension MovieViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if tableView == listTableView {
-            let movie = moviesList![indexPath.row]
-            let thumbnail = thumbnailList?[indexPath.row]
-            Global.changeToContent(of: movie, withThumbnail: thumbnail, in: self.navigationController)
-        }
+        let movie = moviesList![indexPath.row]
+        let thumbnail = thumbnailList?[indexPath.row]
+        Global.changeToContent(of: movie, withThumbnail: thumbnail, in: self.navigationController)
+
     }
 
 }

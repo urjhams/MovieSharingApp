@@ -40,11 +40,12 @@ struct Global {
      */
     public static func changeToContent(of movie: MovieInfo, withThumbnail thumbnail: UIImage?, in navi: UINavigationController?) {
         let storyBoard = UIStoryboard(name: "Main", bundle: .main)
-        if let destination = storyBoard.instantiateViewController(withIdentifier: "MovieDetailVC") as? MovieDetailViewController {
-            destination.movie = movie
-            destination.thumbnail = thumbnail
-            navi?.pushViewController(destination, animated: true)
+        guard let destination = storyBoard.instantiateViewController(withIdentifier: "MovieDetailVC") as? MovieDetailViewController else {
+            return
         }
+        destination.movie = movie
+        destination.thumbnail = thumbnail
+        navi?.pushViewController(destination, animated: true)
     }
     
     /**
@@ -70,54 +71,12 @@ struct Global {
         - delegate: the protocol of delegate for the table view
         - dataSource: the protocol of data source for the table view
      */
-    public static func initTableView(_ tableView: inout UITableView?,inside view: UIView, fromCellNib nib: String, withCellIdentifier id: String, throughDelegate delegate: UITableViewDelegate, withDatasoruce dataSource: UITableViewDataSource) {
-        tableView = UITableView(frame: CGRect.zero)
+    public static func configTableView(_ tableView: inout UITableView?, fromCellNib nib: String, withCellIdentifier id: String, throughDelegate delegate: UITableViewDelegate, withDatasoruce dataSource: UITableViewDataSource) {
         tableView!.delegate = delegate
         tableView!.dataSource = dataSource
         tableView!.backgroundColor = .white
         tableView!.separatorStyle = .none
         tableView!.register(UINib(nibName: nib, bundle: nil), forCellReuseIdentifier: id)
-        view.addSubview(tableView!)
-        
-        // autolayout
-        var constraintList = [NSLayoutConstraint]()
-        
-        constraintList.append(NSLayoutConstraint(
-            item: tableView!,
-            attribute: .leading,
-            relatedBy: .equal,
-            toItem: view,
-            attribute: .leading,
-            multiplier: 1,
-            constant: 0))
-        constraintList.append(NSLayoutConstraint(
-            item: tableView!,
-            attribute: .trailing,
-            relatedBy: .equal,
-            toItem: view,
-            attribute: .trailing,
-            multiplier: 1,
-            constant: 0))
-        constraintList.append(NSLayoutConstraint(
-            item: tableView!,
-            attribute: .top,
-            relatedBy: .equal,
-            toItem: view,
-            attribute: .top,
-            multiplier: 1,
-            constant: 0))
-        constraintList.append(NSLayoutConstraint(
-            item: tableView!,
-            attribute: .bottom,
-            relatedBy: .equal,
-            toItem: view,
-            attribute: .bottom,
-            multiplier: 1,
-            constant: 0))
-        NSLayoutConstraint.activate(constraintList)
-        
-        view.backgroundColor = .black
-        tableView!.translatesAutoresizingMaskIntoConstraints = false
     }
     
     /**
