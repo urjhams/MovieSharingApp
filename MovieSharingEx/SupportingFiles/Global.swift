@@ -43,8 +43,7 @@ struct Global {
         guard let destination = storyBoard.instantiateViewController(withIdentifier: "MovieDetailVC") as? MovieDetailViewController else {
             return
         }
-        destination.movie = movie
-        destination.thumbnail = thumbnail
+        destination.movieViewModel = MovieViewModel(movie: movie, cover: thumbnail, thumbnail: thumbnail, delegate: destination as MovieDetailDelegate)
         navi?.pushViewController(destination, animated: true)
     }
     

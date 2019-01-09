@@ -9,7 +9,7 @@
 import Foundation
 
 /// The object that holds neccessary information about the movie
-struct MovieInfo: Codable {
+public struct MovieInfo: Codable {
     public let id: String
     public let title: String
     public let imageUrl: String
