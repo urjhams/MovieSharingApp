@@ -116,4 +116,20 @@ struct Global {
         }
         return false
     }
+    
+    public static func saveTheMovie(_ movie: MovieInfo) -> Bool {
+        if Constants.Storage.favoriteDataList.contains(movie) { return false }
+        Constants.Storage.favoriteDataList.append(movie)
+        return true
+    }
+    
+    public static func removeTheMovie(_ movie: MovieInfo) -> Bool {
+        for index in 0..<Constants.Storage.favoriteDataList.count {
+            if movie == Constants.Storage.favoriteDataList[index] {
+                Constants.Storage.favoriteDataList.remove(at: index)
+                return true
+            }
+        }
+        return false
+    }
 }
