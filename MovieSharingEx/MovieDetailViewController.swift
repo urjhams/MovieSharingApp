@@ -9,7 +9,6 @@
 import UIKit
 
 public protocol MovieDetailDelegate {
-    func showMess(mess: String, withTitle title: String)
     func setLike(image: UIImage)
 }
 class MovieDetailViewController: UIViewController {
@@ -66,16 +65,21 @@ extension MovieDetailViewController {
 extension MovieDetailViewController {
     @objc private func clickLike(_ sender: UIBarButtonItem) {
         // now it should had the movie object already
-        movieViewModel.likeProcess()
+        if movieViewModel.like {
+            if !Global.removeTheMovie(movieViewModel.movie) {
+                Global.showMessage("Oops, something happen", withTitle: "Removed", inside: self)
+            }
+        }
+        else {
+            if !Global.saveTheMovie(movieViewModel.movie) {
+                Global.showMessage("Oops, something happen", withTitle: "Removed", inside: self)
+            }
+        }
+        movieViewModel.like = !movieViewModel.like
     }
 }
 
 extension MovieDetailViewController: MovieDetailDelegate {
-    func showMess(mess: String, withTitle title: String) {
-        Global.showMessage(mess,
-                           withTitle: title, inside: self)
-    }
-    
     /// Set the image of like button on the navigation bar
     internal func setLike(image: UIImage) {
         self.naviItem.rightBarButtonItem = UIBarButtonItem(image: image,
